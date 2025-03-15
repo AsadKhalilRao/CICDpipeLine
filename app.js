@@ -1,20 +1,17 @@
 const express = require('express');
 const axios = require('axios');
 const app = express();
-const port = 3006;
+const port = 3004;
 
-app.get('/quote', async (req, res) => {
+app.get('/joke', async (req, res) => {
   try {
-    const response = await axios.get('https://api.api-ninjas.com/quotes/wyP0rX3Ol4Kjx/wq3oCjRA==TrR9D9eHwcRfwL5d');
-    res.json({ 
-      quote: response.data.content, 
-      author: response.data.author 
-    });
+    const response = await axios.get('https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit');
+    res.json({ joke: response.data.joke });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch quote' });
+    res.status(500).json({ error: 'Failed to fetch joke' });
   }
 });
 
 app.listen(port, () => {
-  console.log(`Quote service running on port ${port}`);
+  console.log(`Joke service running on port ${port}`);
 });
